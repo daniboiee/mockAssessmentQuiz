@@ -18,9 +18,28 @@ gemlist = ["Ruby", "Amber", "Diamond", "Blue Diamond", "Amethyst", "Phosphophyll
 
 def get_random_answers(correct_answer):
     options = [correct_answer]          # Ensure the correct answer is in the list of options
-    incorrect_answers = random.sample([gem for gem in gemlist if gem != correct_answer, 3]) #Randomly picks 3 incorrect answers from the list without duplicates
+    incorrect_answers = random.sample([gem for gem in gemlist if gem != correct_answer], 5) #Randomly picks 5 incorrect answers from the list without duplicates
     options.extend(incorrect_answers)   # Add incorrect answers to the options
     random.shuffle(options)             # Shuffle the options so the correct answer is always in different locations
     return options
 
-while True:
+def quiz():
+    i = 0
+    score = 0
+    while i < len(questionDictionary):
+        questions = list(questionDictionary.keys())         # Puts questions into a list for ease of access
+        print(questions[i])                                 # Outputs questions
+        correct_answer = questionDictionary[questions[i]]   # Gets the correct answer
+        options = get_random_answers(correct_answer)        # Compiles a list of possible incorrect answers
+        print(options)
+        user_answer = input("").lower()                     # Uses .lower() to remove issues with capitalisation
+        if user_answer == correct_answer.lower():
+            print("Correct.")
+            score +=1
+        else:
+            print("Your answer was incorrect. The right answer was:", correct_answer)
+        i+=1
+    print("Your score was:", score)
+
+quiz()
+#& C:/Users/daniel.sarruf/AppData/Local/Programs/Python/Python312/python.exe c:/Users/daniel.sarruf/Desktop/school_code/mock_assessment_quiz/mockAssessmentQuiz/myQuiz.py
