@@ -35,6 +35,13 @@ def get_name():     # Simple function to get user's name
         print("Invalid input. Please use letters and spaces only (no numbers or symbols).")
         return get_name()
 
+def save_score(name, score):
+    save_option = input("Do you want to save your score? (yes/no): ").strip().lower()
+    if save_option == 'yes':
+        with open("scores.txt", "a") as file:
+            file.write(f"{name}: {score} out of {len(questionDictionary)}\n")
+        print(f"Your score has been saved, {name}!")
+
 def quiz():
     score = 0   # Set user's initial score to 0
     questions = list(questionDictionary.items())    # Convert the dictionary into a list of (question, answer) pairs
@@ -74,6 +81,8 @@ def quiz():
     print(f"\n{name}, you got {score} out of {len(questionDictionary)} correct!")
     if score == len(questionDictionary):
         print("You answered every question correctly! Well done.")
+
+    save_score(name, score)
 
 quiz()
 #& C:/Users/daniel.sarruf/AppData/Local/Programs/Python/Python312/python.exe c:/Users/daniel.sarruf/Desktop/school_code/mock_assessment_quiz/mockAssessmentQuiz/myQuiz.py
