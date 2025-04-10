@@ -23,10 +23,24 @@ def get_random_answers(correct_answer):
     random.shuffle(options)             # Shuffle the options so the correct answer is always in different locations
     return options
 
+def get_name():     # Simple function to get user's name
+    name = input("Please enter your name: ").strip()
+    if not name:    # If the name is empty, repeats the function
+        print("Name cannot be empty. Please try again.")
+        return get_name()
+
+    if all(char.isalpha() or char.isspace() for char in name):  # Makes sure all the characters are either letters or spaces
+        return name
+    else:   # If not all characters fall under these conditions, repeats the function
+        print("Invalid input. Please use letters and spaces only (no numbers or symbols).")
+        return get_name()
+
 def quiz():
     score = 0   # Set user's initial score to 0
     questions = list(questionDictionary.items())    # Convert the dictionary into a list of (question, answer) pairs
     random.shuffle(questions)   # Shuffle question order
+
+    name = get_name()   # Gets the user's name
 
     # Loop through each question and its correct answer
     for i, (question, correct_answer) in enumerate(questions, 1):
@@ -56,8 +70,10 @@ def quiz():
         else:
             print(f"Incorrect. The correct answer was: {correct_answer}")
 
-    # Prints the final score after all questions are answered
-    print(f"\nYou got {score} out of {len(questionDictionary)} correct!")
+    # Prints the final score after all questions are answered, and congratulates user on a perfect clear
+    print(f"\n{name}, you got {score} out of {len(questionDictionary)} correct!")
+    if score == len(questionDictionary):
+        print("You answered every question correctly! Well done.")
 
 quiz()
 #& C:/Users/daniel.sarruf/AppData/Local/Programs/Python/Python312/python.exe c:/Users/daniel.sarruf/Desktop/school_code/mock_assessment_quiz/mockAssessmentQuiz/myQuiz.py
