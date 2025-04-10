@@ -24,34 +24,39 @@ def get_random_answers(correct_answer):
     return options
 
 def quiz():
-    score = 0
-    questions = list(questionDictionary.items())
-    random.shuffle(questions)
+    score = 0   # Set user's initial score to 0
+    questions = list(questionDictionary.items())    # Convert the dictionary into a list of (question, answer) pairs
+    random.shuffle(questions)   # Shuffle question order
 
+    # Loop through each question and its correct answer
     for i, (question, correct_answer) in enumerate(questions, 1):
         print(f"\nQuestion {i}: {question}")
-        options = get_random_answers(correct_answer)
+        options = get_random_answers(correct_answer)    # Get a randomized list of possible answers (including the correct one)
 
+        # Display answer options
         for idx, option in enumerate(options, 1):
             print(f"  {idx}. {option}")
         
+        # Get user input with validation to ensure it's a number between 1 and 6
         while True:
             try:
                 user_choice = int(input("Your answer (1-6): "))
                 if 1 <= user_choice <= 6:
-                    break
+                    break   # Valid input, exit loop
                 else:
                     print("Please choose a number between 1 and 6.")
             except ValueError:
                 print("Invalid input. Please enter a number.")
         
-        selected_answer = options[user_choice - 1]
+        # Check if the selected answer is correct
+        selected_answer = options[user_choice - 1]  # Convert from 1-based to 0-based index
         if selected_answer == correct_answer:
             print("Correct!")
-            score += 1
+            score += 1  # Increase score when answer is correct
         else:
             print(f"Incorrect. The correct answer was: {correct_answer}")
 
+    # Prints the final score after all questions are answered
     print(f"\nYou got {score} out of {len(questionDictionary)} correct!")
 
 quiz()
