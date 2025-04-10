@@ -53,12 +53,22 @@ class QuizApp:
         if self.question_index < len(self.questions):
             question, correct_answer = self.questions[self.question_index]
             options = get_random_answers(correct_answer)
+
+            # Remove previous question and options before displaying new ones
+            if hasattr(self, 'question_label'):
+                self.question_label.pack_forget()
+            if hasattr(self, 'option_buttons'):
+                for btn in self.option_buttons:
+                    btn.pack_forget()
+
             self.question_label = tk.Label(self.root, text=f"Question {self.question_index + 1}: {question}")
             self.question_label.pack(pady=10)
 
+            self.option_buttons = []
             for option in options:
                 btn = tk.Button(self.root, text=option, command=lambda option=option: self.check_answer(option, correct_answer))
                 btn.pack(fill=tk.X, padx=20, pady=2)
+                self.option_buttons.append(btn)
         else:
             self.display_score()
 
