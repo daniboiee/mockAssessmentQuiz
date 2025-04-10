@@ -3,7 +3,7 @@ import random
 questionDictionary = {
     "Which gemstone is reffered to as the king of gemstones?" : "Ruby",
     "What gemstone is formed from tree resin and is often found with insects trapped inside?" : "Amber",
-    "Which gemstone is the hardest naturally occurring substance on Earth?" : "Diamond",
+    "Which gemstone is the softest naturally occurring substance on Earth?" : "Talc",
     "What is the most expensive gemstone per carat?" : "Blue Diamond",
     "Which gemstone did the ancient greeks believe protected against intoxication?" : "Amethyst",
     "Who is the main character of the series Land of the Lustrous?" : "Phosphophyllite",
