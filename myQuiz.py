@@ -1,7 +1,7 @@
 import random
 
 questionDictionary = {
-    "Which gemstone is reffered to as the king of gemstones?" : "Ruby",
+    "Which gemstone is referred to as the king of gemstones?" : "Ruby",
     "What gemstone is formed from tree resin and is often found with insects trapped inside?" : "Amber",
     "Which gemstone is the softest naturally occurring substance on Earth?" : "Talc",
     "What is the most expensive gemstone per carat?" : "Blue Diamond",
@@ -24,22 +24,35 @@ def get_random_answers(correct_answer):
     return options
 
 def quiz():
-    i = 0
     score = 0
-    while i < len(questionDictionary):
-        questions = list(questionDictionary.keys())         # Puts questions into a list for ease of access
-        print(questions[i])                                 # Outputs questions
-        correct_answer = questionDictionary[questions[i]]   # Gets the correct answer
-        options = get_random_answers(correct_answer)        # Compiles a list of possible incorrect answers
-        print(options)
-        user_answer = input("").lower()                     # Uses .lower() to remove issues with capitalisation
-        if user_answer == correct_answer.lower():
-            print("Correct.")
-            score +=1
+    questions = list(questionDictionary.items())
+    random.shuffle(questions)
+
+    for i, (question, correct_answer) in enumerate(questions, 1):
+        print(f"\nQuestion {i}: {question}")
+        options = get_random_answers(correct_answer)
+
+        for idx, option in enumerate(options, 1):
+            print(f"  {idx}. {option}")
+        
+        while True:
+            try:
+                user_choice = int(input("Your answer (1-6): "))
+                if 1 <= user_choice <= 6:
+                    break
+                else:
+                    print("Please choose a number between 1 and 6.")
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+        
+        selected_answer = options[user_choice - 1]
+        if selected_answer == correct_answer:
+            print("Correct!")
+            score += 1
         else:
-            print("Your answer was incorrect. The right answer was:", correct_answer)
-        i+=1
-    print("Your score was:", score)
+            print(f"Incorrect. The correct answer was: {correct_answer}")
+
+    print(f"\nYou got {score} out of {len(questionDictionary)} correct!")
 
 quiz()
 #& C:/Users/daniel.sarruf/AppData/Local/Programs/Python/Python312/python.exe c:/Users/daniel.sarruf/Desktop/school_code/mock_assessment_quiz/mockAssessmentQuiz/myQuiz.py
